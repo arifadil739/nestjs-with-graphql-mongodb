@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @upper on FIELD_DEFINITION
+
+"""User fetch object"""
+type GetAllUsers {
+  _id: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Created user message object"""
+type CreateUserMessage {
+  message: String!
+}
+
+type Query {
+  getAllUsers: [GetAllUsers!]!
+  getUser(_id: String!): GetAllUsers!
+}
+
+type Mutation {
+  createUser(createUserDto: CreateUserDto!): CreateUserMessage!
+  updateUser(updatedUserDto: UpdateUserDto!): CreateUserMessage!
+  deleteUser(deleteUserDto: DeleteUserDto!): CreateUserMessage!
+}
+
+input CreateUserDto {
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+input UpdateUserDto {
+  _id: String!
+  firstName: String
+  lastName: String
+  password: String
+}
+
+input DeleteUserDto {
+  _id: String!
+}
