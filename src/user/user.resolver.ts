@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { User } from './schema/user.schema';
 import { UserService } from './user.service';
-import { CreateUserMessage } from './model/user.model'
+import { CreateUserMessage, UserArgs } from './model/user.model'
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
@@ -13,8 +13,10 @@ export class UserResolver {
     ) { }
 
     @Query(returns => [GetAllUsers])
-    async getAllUsers() {
-        return await this.userService.getAllUsers()
+    async getAllUsers(
+        @Args() userArgs: UserArgs
+    ) {
+        return await this.userService.getAllUsers(userArgs)
     }
 
     @Query(returns => GetAllUsers)

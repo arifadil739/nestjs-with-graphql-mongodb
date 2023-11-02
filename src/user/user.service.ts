@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema/user.schema';
 import mongoose from 'mongoose'
+import { UserArgs } from './model/user.model'
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
@@ -13,8 +14,21 @@ export class UserService {
         private userModel: mongoose.Model<User>
     ) { }
 
-    async getAllUsers() {
-        let users = await this.userModel.find({})
+    async getAllUsers(userArgs: UserArgs) {
+        let limit = userArgs.take || 10;
+        let offset = userArgs.skip || 0;
+        let search = userArgs.searchQuery || '';
+
+        const regex = new RegExp(search.trim(), 'i');
+        let users = await this.userModel.find({
+            $or: [
+                { firstName: { $regex: regex } },
+                { lastName: { $regex: regex } },
+            ],
+        })
+            .limit(limit)
+            .skip(offset)
+
         console.log(users, "check users")
         return users
     }

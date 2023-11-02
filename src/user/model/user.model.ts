@@ -1,5 +1,6 @@
-import { Field, ObjectType} from "@nestjs/graphql";
+import { Field, ObjectType,ArgsType, Int} from "@nestjs/graphql";
 import {Types} from "mongoose"
+import { Max, Min } from "class-validator";
 
 
 @ObjectType({
@@ -31,4 +32,20 @@ export class GetAllUsers {
 export class CreateUserMessage{
     @Field(()=>String)
     message:string
+}
+
+// queries
+@ArgsType()
+export class UserArgs {
+  @Field((type) => Int)
+  @Min(0)
+  skip = 0;
+
+  @Field((type) => Int)
+  @Min(1)
+  @Max(50)
+  take = 25;
+
+  @Field((type)=> String)
+  searchQuery = ""
 }

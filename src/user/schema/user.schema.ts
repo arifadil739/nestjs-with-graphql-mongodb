@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
 import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
+import { ArgsType, Int } from "@nestjs/graphql";
+import { Max, Min } from "class-validator";
 
 @ObjectType({ description: 'User schema' })
 @Schema({ timestamps: true })
@@ -26,20 +28,17 @@ export class User extends Document {
 export const UserSchema = SchemaFactory.createForClass(User)
 
 
+// import { ArgsType, Field, Int } from "@nestjs/graphql";
+// import { Max, Min } from "class-validator";
 
+// @ArgsType()
+// export class RecipesArgs {
+//   @Field((type) => Int)
+//   @Min(0)
+//   skip = 0;
 
-// @ObjectType({ description: 'recipe ' })
-// export class GetAllRecipe{
-//   @Field({ nullable: true })
-//   title:string;
-
-//   @Field({ nullable: true })
-//   description:string;
-
-//   @Field(()=>Date)
-//   createdAt:Date;
-
-//   @Field(()=>[String])
-//   ingredients:string[];
-
+//   @Field((type) => Int)
+//   @Min(1)
+//   @Max(50)
+//   take = 25;
 // }

@@ -25,7 +25,7 @@ type CreateUserMessage {
 }
 
 type Query {
-  getAllUsers: [GetAllUsers!]!
+  getAllUsers(skip: Int! = 0, take: Int! = 25, searchQuery: String! = ""): [GetAllUsers!]!
   getUser(_id: String!): GetAllUsers!
 }
 
